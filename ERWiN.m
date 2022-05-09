@@ -103,7 +103,7 @@ widget              = drawLeftPanel(widget,wip);
 widget              = drawRightPanel(widget,wip);
 
 drawnow
-widget.fig.Pointer = 'arrow';
+widget.fig.Pointer  = 'arrow';
 
 
 % ======================================================================= %
