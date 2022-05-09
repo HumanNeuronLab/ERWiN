@@ -2,7 +2,7 @@
 	Electrode Reconstruction Widget for Neuroimaging (ERWiN)
 =========================================================================
 
-This UI widget was created to help locate stereo-EEG contact locations.
+This GUI widget was created to help locate stereo-EEG contact locations.
 
 To start: open Matlab and run ERWiN in the command line 
 (ensure the folder containing the ERWiN.m file has been added to your 
