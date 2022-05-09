@@ -76,7 +76,7 @@ gitAutoUpdate(widgetVersion);
 
 % --------------- Main figure & output variable declaration ------------- %
 
-widget = [];
+widget              = [];
 fig_title           = sprintf('ERWiN - by Human Neuron Lab');
 screen_offset       = os_offset();
 monitorSize         = get(groot,'MonitorPositions');
