@@ -15,7 +15,7 @@ allow to save all outputs.
 
 
 Current Version: 1.0
-Updated on: 	09/05/2022
+Updated on: 	 09/05/2022
 __________________________________________________________________________
 Current Version Updates:
        - GUI created that allows i-EEG electrode location estimation based
