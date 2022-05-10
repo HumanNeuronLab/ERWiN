@@ -60,7 +60,7 @@ if contains(path,genpath([scriptPath filesep 'ARCHIVE']))
     savepath;
 end
 
-% -------- Verify all required add-ons are instaleld is installed --------%
+% -------- Verify all required add-ons are installed is installed --------%
 
 addonsCheck();
 
