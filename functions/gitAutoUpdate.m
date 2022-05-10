@@ -1,4 +1,4 @@
-function gitAutoUpdate(wVersion)
+function gitAutoUpdate
     try
         % Test if there is an internet connection
         java.net.InetAddress.getByName('www.google.com');
@@ -28,6 +28,11 @@ function gitAutoUpdate(wVersion)
         'https://github.com/HumanNeuronLab/ERWiN.git']);
     [~,gitFetch] = system('git fetch --dry-run');
     if ~isempty(gitFetch) || isfile([scriptPath filesep '.updater'])
+        fid                 = fopen([scriptPath filesep 'readme.txt']);
+        readMeText          = fscanf(fid,'%s');
+        vStr                = 'CurrentVersion:';
+        idx                 = strfind(readMeText,vStr);
+        wVersion       = readMeText(idx+length(vStr):idx+length(vStr)+2);
         if isfile([scriptPath filesep '.updater'])
             !rm -rf .updater
         end
