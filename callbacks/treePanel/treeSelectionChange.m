@@ -13,13 +13,13 @@ function treeSelectionChange(~,evt,widget)
             slider_z1 = widget.slider_Z_CT;
             ax1 = widget.ax_sliceView1_CT;
             ax2 = widget.ax_sliceView2_CT;
-            ax3 = awidget.x_sliceView3_CT;
+            ax3 = widget.ax_sliceView3_CT;
             labelVI = widget.label_voxelIntensity_CT;
             button_correctContacts = widget.button_correctContacts;
             artificial_evt.Value = widget.params.dropdown_ElectrodeSelector.Items(str2double(evt.SelectedNodes.Tag(10:end)));
             widget.params.dropdown_ElectrodeSelector.Value = {artificial_evt.Value};
             electrodeSelectionChanged(widget.params.dropdown_ElectrodeSelector,...
-                artificial_evt,widget.tree_Summary,widget.params,slider_contacts,label_contacts,field_Xvalue1,field_Yvalue1,field_Zvalue1,slider_x1,slider_y1,slider_z1,ax1,ax2,ax3,labelVI,button_correctContacts,widget.panel_CentralTabsMRI,widget)
+                artificial_evt,widget);
         case 'T1'
             if ~(isequal(widget.panel_CentralTabsMRI.SelectedTab.Title,'[select Anatomical NIfTI file (optional)]'))
                 slider_contacts = widget.slider_contacts_T1;
@@ -54,7 +54,7 @@ function treeSelectionChange(~,evt,widget)
             artificial_evt.Value = widget.params.dropdown_ElectrodeSelector.Items(str2double(evt.SelectedNodes.Tag(10:end)));
             widget.params.dropdown_ElectrodeSelector.Value = {artificial_evt.Value};
             electrodeSelectionChanged(widget.params.dropdown_ElectrodeSelector,...
-                artificial_evt,widget.tree_Summary,widget.params,slider_contacts,label_contacts,field_Xvalue1,field_Yvalue1,field_Zvalue1,slider_x1,slider_y1,slider_z1,ax1,ax2,ax3,labelVI,button_correctContacts,widget.panel_CentralTabsMRI,widget)
+                artificial_evt,widget)
         case 'glassbrain'
             try
                 currElectrode = evt.SelectedNodes.Tag;

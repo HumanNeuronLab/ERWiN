@@ -32,10 +32,10 @@ function contactSliderValueChanging(data,evt,widget)
     slider_z.Value = round(widget.fig.UserData.(field).contact(Value,3));
 
     artificialEvent.Value = slider_x.Value;
-    slider_valueChanging(slider_x,artificialEvent,widget);
+    sliderValueChanging(slider_x,artificialEvent,widget);
     artificialEvent.Value = slider_y.Value;
-    slider_valueChanging(slider_y,artificialEvent,widget);
+    sliderValueChanging(slider_y,artificialEvent,widget);
     artificialEvent.Value = slider_z.Value;
-    slider_valueChanging(slider_z,artificialEvent,widget);
+    sliderValueChanging(slider_z,artificialEvent,widget);
 
 end
