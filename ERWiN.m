@@ -45,7 +45,7 @@ function ERWiN
 clearvars
 clc
 
-% ----------- Check all subfolders & functions added to path -------------%
+% ----------- Check all subfolders & functions added to path ------------ %
 
 scriptPath = fileparts(which(mfilename));
 if ~contains(path,genpath(scriptPath))
@@ -60,11 +60,11 @@ if contains(path,genpath([scriptPath filesep 'ARCHIVE']))
     savepath;
 end
 
-% --------------- Verify all required add-ons are installed --------------%
+% --------------- Verify all required add-ons are installed ------------- %
 
 addonsCheck();
 
-% ----------- Check for new Git commits (bug fixes & updates) ------------%
+% ----------- Check for new Git commits (bug fixes & updates) ----------- %
 
 gitAutoUpdate();
 
