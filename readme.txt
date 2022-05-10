@@ -12,7 +12,7 @@ The ERWiN function will open the GUI needed to run all electrode contact
 location estimations. Once all parameters are successfully entered and 
 contact coordinates are created, the "Done" button is enabled and will 
 allow to save all outputs.
-T
+
 
 Current Version: 1.0
 Updated on: 	 09/05/2022
