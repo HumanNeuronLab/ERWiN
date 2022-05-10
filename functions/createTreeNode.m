@@ -13,7 +13,7 @@ function widget = createTreeNode(widget,currTree,field)
         widget.tree.UserData.(field).contacts = uitreenode('Parent',widget.tree.UserData.(field).electrodeName,'Text','Contact coordinates (X,Y,Z):','Tag',field);
         [n_contacts,~] = size(widget.fig.UserData.(field).contact);
         for i = 1:n_contacts
-            uitreenode('Parent',widget.tree.UserData.(field).contacts.(field),'Text',['Contact ' num2str(i) ': ' mat2str(round(widget.fig.UserData.(field).contact(i,:)))],'Tag',field);
+            uitreenode('Parent',widget.tree.UserData.(field).contacts,'Text',['Contact ' num2str(i) ': ' mat2str(round(widget.fig.UserData.(field).contact(i,:)))],'Tag',field);
         end
     end
 end
