@@ -146,9 +146,10 @@ function addonsCheck
     addonsRequired = ...
         {'Statistics and Machine Learning Toolbox','pdist2()','estimateButtonPushed.m'};
     addonsMissing = zeros(length(addonsRequired),1);
-
-    for j = 1:height(addonsRequired)
-        for i = 1:height(addonsNames)
+    [sAddonsRequired,~] = size(addonsRequired);
+    [sAddonsNames,~] = size(addonsNames);
+    for j = 1:sAddonsRequired
+        for i = 1:sAddonsNames
             if isequal(addonsNames{i,1},addonsRequired{j,1})
                 break
             elseif i == height(addonsNames)
