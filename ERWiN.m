@@ -65,7 +65,7 @@ end
 addonsCheck();
 
 % ----------- Check for new Git commits (bug fixes & updates) ------------%
-
+%
 fid                 = fopen([scriptPath filesep 'readme.txt']);
 readMeText          = fscanf(fid,'%s');
 vStr                = 'CurrentVersion:';
