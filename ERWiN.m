@@ -71,7 +71,6 @@ readMeText          = fscanf(fid,'%s');
 vStr                = 'CurrentVersion:';
 idx                 = strfind(readMeText,vStr);
 widgetVersion       = readMeText(idx+length(vStr):idx+length(vStr)+2);
-widgetVersion(2)    = '_';
 gitAutoUpdate2(widgetVersion);
 
 % --------------- Main figure & output variable declaration ------------- %
