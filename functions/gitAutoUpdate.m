@@ -116,15 +116,15 @@ function gitAutoUpdate
                             fprintf(['\n\nArchive folder created: ' scriptPath filesep 'ARCHIVE' filesep archDir '\n\n']);
                             !git reset --hard origin/main
                     end
-                    cd(currDir);
-                    fid = fopen([scriptPath filesep 'readme.txt']);
-                    readMeText = fscanf(fid,'%s');
-                    vStr = 'CurrentVersion:';
-                    idx = strfind(readMeText,vStr);
-                    widgetVersion = readMeText(idx+length(vStr):idx+length(vStr)+2);
-                    fprintf(['\n\n<strong>Current version (v' widgetVersion ...
-                        ') of ERWiN is up-to-date!</strong>\n\n']);
                 end
+                cd(currDir);
+                fid = fopen([scriptPath filesep 'readme.txt']);
+                readMeText = fscanf(fid,'%s');
+                vStr = 'CurrentVersion:';
+                idx = strfind(readMeText,vStr);
+                widgetVersion = readMeText(idx+length(vStr):idx+length(vStr)+2);
+                fprintf(['\n\n<strong>Current version (v' widgetVersion ...
+                    ') of ERWiN is up-to-date!</strong>\n\n']);
             case 'Not this time'
                 fprintf(2,['\n\n<strong>Current version (v' wVersion ...
                     ') of ERWiN is not up-to-date.</strong>\n\n']);
