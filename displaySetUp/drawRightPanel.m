@@ -4,7 +4,7 @@ function widget = drawRightPanel(widget,wip)
 
 % ---------------------- Electrodes Summary Panel ----------------------- %
 
-widget.tree_Summary = uitree('Parent',widget.fig,...%'Enable','off',...
+widget.tree_Summary = uitree('Parent',widget.fig,'Enable','off',...
     'Position',[widget.panel_CentralTabsMRI.Position(1)+widget.panel_CentralTabsMRI.Position(3)+40,60,widget.panel_CentralTabsMRI.Position(1)-80,wip(4)-120]);
 widget.tree = uipanel('Parent',widget.fig,'Visible','off');
 widget = createTreeNode(widget,widget.tree_Summary,'Electrode1');
