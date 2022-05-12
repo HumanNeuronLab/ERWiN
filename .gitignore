@@ -1,3 +1,6 @@
-ARCHIVE/** 
+# Directory created to archive old versions or conflicting local versions with new releases
+ARCHIVE/**
+
+# Matlab autosave files and folder display hidden files
 **/*.asv
 **/.DS_Store
