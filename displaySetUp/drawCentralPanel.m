@@ -4,7 +4,7 @@ function [widget,wip] = drawCentralPanel(widget)
 % -------------------------- Slice viewer panel ------------------------- %
 
 
-wip = widget.fig.Position;
+wip = round(widget.fig.Position);
 
 widget.panel_CentralTabsMRI = uitabgroup('Parent',widget.fig,...
     'Position',round([(wip(3)-wip(4))/2,10,wip(4),wip(4)-20]));
