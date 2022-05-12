@@ -95,9 +95,10 @@ drawnow
 [widget,wip]        = drawCentralPanel(widget);
 widget              = drawLeftPanel(widget,wip);
 widget              = drawRightPanel(widget,wip);
+widget              = logoDisplay(widget,scriptPath);
 
-drawnow
 widget.fig.Pointer  = 'arrow';
+drawnow
 
 
 % ======================================================================= %
@@ -171,6 +172,16 @@ function addonsCheck
             pdist2;
         end
     end
+end
+
+function widget = logoDisplay(widget,scriptPath)
+    [iconUNIGE, ~, alphaUNIGE] = imread(...
+        [scriptPath filesep 'assets' filesep 'UNIGE_logo.png']);
+    ax_logoUNIGE = axes('Parent',widget.fig);
+    widget.logo_UNIGE = imshow(iconUNIGE,'Parent',ax_logoUNIGE);
+    widget.logo_UNIGE.AlphaData = alphaUNIGE;
+    ax_logoUNIGE.Units = 'pixels';
+    ax_logoUNIGE.Position = [10 10 270 127];
 end
 
 end

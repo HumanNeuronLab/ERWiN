@@ -182,6 +182,8 @@ function selectFile(data, ~, widget)
     widget = mriVolUpdate(widget);
     drawnow
     widget.fig.Pointer = 'arrow';
+    widget.button_permuteVol_CT.Enable = 'on';
+    widget.button_rotateVol_CT.Enable = 'on';
 
     addlistener(coronal_crosshair,'MovingROI',@(src,data)crossDrag...
         (src,data,widget.glassbrain.UserData.vol,vol_size,labelVI,ax1,ax2,ax3,labelC,labelS,labelA,coronal_image,...
