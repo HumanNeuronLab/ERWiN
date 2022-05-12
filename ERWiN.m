@@ -4,7 +4,7 @@ function ERWiN
 %   
 %   Version:        1.0
 %   Contact:        jonathan.monney@unige.ch
-%   Last Update:    09/05/2022
+%   Last Update:    12/05/2022
 %
 %   Current Version Updates:
 %       - GUI created that allows i-EEG electrode location estimation based
