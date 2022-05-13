@@ -14,8 +14,8 @@ contact coordinates are created, the "Done" button is enabled and will
 allow to save all outputs.
 
 
-Current Version: 1.0
-Updated on: 	 12/05/2022
+Current Version: 1.1
+Updated on: 	 13/05/2022
 __________________________________________________________________________
 Current Version Updates:
        - GUI created that allows i-EEG electrode location estimation based
@@ -32,6 +32,7 @@ Current Version Updates:
        - Glassbrain is a graphical output that displays located electrodes
          and a mesh of the CT (and/or T1) volume.
        - AutoUpdate from Github fix.
+       - Rotation and permutation buttons added. (V1.1)
           
        Note: electrode parameters may only be modified or updated in the
        CT tab. After updating any electrode parameters, estimation must be
@@ -42,6 +43,8 @@ Known bugs:
        None reported.
  
 Future Version Updates:
+       - Rotation and permutation transformations must be taken into
+         coordinate account for contacts.
        - Allow for slice viewer rotation and permutation.
        - Add option to not save Mgrid file.
        - Add option to save .txt file compatible with final BioImageSuite

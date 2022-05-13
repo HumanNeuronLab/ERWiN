@@ -124,6 +124,10 @@ widget.slider_contacts_CT.Position = [widget.panel_sliceView4_CT.Position(3)*0.1
 widget.button_correctContacts = uibutton('Parent',widget.panel_sliceView4_CT,'Text','Correct',...
     'Position',[widget.panel_sliceView4_CT.Position(3)/2-30,widget.label_contacts_CT.Position(2),60,22],...
     'Enable','off','Visible','off');
+widget.transform = uipanel('Parent',widget.fig,'Visible','off');
+widget.transform.UserData.permutations = 0;
+widget.transform.UserData.rotations = 0;
+widget.transform.UserData.action = 'none';
 
 %%%%%%%%%%%%
 widget.panel_sliceView1_T1 = uipanel('Parent',widget.tab_T1,...

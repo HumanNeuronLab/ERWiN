@@ -24,11 +24,6 @@ function selectFile(data, ~, widget)
             panel4 = widget.panel_sliceView4_T1;
     end
 
-
-    [file,path] = uigetfile({'*.nii;*.mgh;*.mgz'});
-    tab_MRI.Title = file;
-    labelButton.Text = file;
-    data.BackgroundColor = [0.94,0.94,0.94];
     cMap = 'bone';
     crosshair_color = [1,0.65,0];
     colormap(ax1,cMap);
@@ -37,15 +32,38 @@ function selectFile(data, ~, widget)
     widget.fig.Pointer = 'watch';
     drawnow
 
-    if contains(file,'.nii')
-        widget.glassbrain.UserData.vol = load_nifti([path file]);
-        widget.glassbrain.UserData.vol = widget.glassbrain.UserData.vol.vol;
-    else
-        widget.glassbrain.UserData.vol = load_mgh([path file]);
+    if isequal(widget.transform.UserData.action,'none')
+        [file,path] = uigetfile({'*.nii;*.mgh;*.mgz'});
+        tab_MRI.Title = file;
+        labelButton.Text = file;
+        data.BackgroundColor = [0.94,0.94,0.94];
+        if contains(file,'.nii')
+            widget.glassbrain.UserData.vol = load_nifti([path file]);
+            widget.glassbrain.UserData.vol = widget.glassbrain.UserData.vol.vol;
+        else
+            widget.glassbrain.UserData.vol = load_mgh([path file]);
+        end
     end
- 
+
+    if isequal(widget.transform.UserData.action,'permute')
+        widget.glassbrain.UserData.vol = permute(...
+            widget.glassbrain.UserData.vol,[3 1 2]);
+        widget.transform.UserData.permutations = widget.transform.UserData.permutations+1;
+        if widget.transform.UserData.permutations == 3
+            widget.transform.UserData.permutations = 0;
+        end
+        widget.transform.UserData.action = 'none';
+    elseif isequal(widget.transform.UserData.action,'rotate')
+        widget.glassbrain.UserData.vol = rot90(widget.glassbrain.UserData.vol);
+        widget.transform.UserData.rotations = widget.transform.UserData.rotations+1;
+        if widget.transform.UserData.rotations == 4
+            widget.transform.UserData.rotations = 0;
+        end
+        widget.transform.UserData.action = 'none';
+    end
+
     if isequal(tab_MRI.Tag,'CT')
-        widget.widget.params.panel_ElectrodeParams.Enable = 'on';
+        widget.params.panel_ElectrodeParams.Enable = 'on';
         widget.tree_Summary.Enable = 'on';
         expand(widget.tree_Summary.Children(1));
         widget.params.button_PickDeepest.BackgroundColor = [1,0.65,0];
@@ -116,14 +134,14 @@ function selectFile(data, ~, widget)
     axial_slice = reshape(axial_slice,[vol_size(2),vol_size(3)]);
     axial_slice = rot90(axial_slice);
     
-    coronal_image = imagesc('Parent',ax1,'CData',coronal_slice,'Tag',num2str(slice_selection));
-    coronal_crosshair = drawcrosshair(ax1,'Position',[ceil(vol_size(2)/2+1),ceil(vol_size(1)/2+1)],...
+    widget.coronal_image = imagesc('Parent',ax1,'CData',coronal_slice,'Tag',num2str(slice_selection));
+    widget.coronal_crosshair = drawcrosshair(ax1,'Position',[ceil(vol_size(2)/2+1),ceil(vol_size(1)/2+1)],...
         'Color',crosshair_color,'LineWidth',1.5,'Tag','coronal_crosshair');
-    sagittal_image = imagesc('Parent',ax2,'CData',sagittal_slice,'Tag',num2str(slice_selection));
-    sagittal_crosshair = drawcrosshair(ax2,'Position',[ceil(vol_size(2)/2+1),ceil(vol_size(1)/2+1)],...
+    widget.sagittal_image = imagesc('Parent',ax2,'CData',sagittal_slice,'Tag',num2str(slice_selection));
+    widget.sagittal_crosshair = drawcrosshair(ax2,'Position',[ceil(vol_size(2)/2+1),ceil(vol_size(1)/2+1)],...
         'Color',crosshair_color,'LineWidth',1.5,'Tag','sagittal_crosshair');
-    axial_image = imagesc('Parent',ax3,'CData',axial_slice,'Tag',num2str(slice_selection));
-    axial_crosshair = drawcrosshair(ax3,'Position',[ceil(vol_size(2)/2+1),ceil(vol_size(1)/2+1)],...
+    widget.axial_image = imagesc('Parent',ax3,'CData',axial_slice,'Tag',num2str(slice_selection));
+    widget.axial_crosshair = drawcrosshair(ax3,'Position',[ceil(vol_size(2)/2+1),ceil(vol_size(1)/2+1)],...
         'Color',crosshair_color,'LineWidth',1.5,'Tag','axial_crosshair');
 
     for i = 1:length(panel4.Children)
@@ -185,14 +203,14 @@ function selectFile(data, ~, widget)
     widget.button_permuteVol_CT.Enable = 'on';
     widget.button_rotateVol_CT.Enable = 'on';
 
-    addlistener(coronal_crosshair,'MovingROI',@(src,data)crossDrag...
-        (src,data,widget.glassbrain.UserData.vol,vol_size,labelVI,ax1,ax2,ax3,labelC,labelS,labelA,coronal_image,...
-        sagittal_image,sagittal_crosshair,axial_image,axial_crosshair,p));
-    addlistener(sagittal_crosshair,'MovingROI',@(src,data)crossDrag...
-        (src,data,widget.glassbrain.UserData.vol,vol_size,labelVI,ax1,ax2,ax3,labelC,labelS,labelA,sagittal_image,...
-        coronal_image,coronal_crosshair,axial_image,axial_crosshair,p));
-    addlistener(axial_crosshair,'MovingROI',@(src,data)crossDrag...
-        (src,data,widget.glassbrain.UserData.vol,vol_size,labelVI,ax1,ax2,ax3,labelC,labelS,labelA,axial_image,...
-        coronal_image,coronal_crosshair,sagittal_image,sagittal_crosshair,p));
+    addlistener(widget.coronal_crosshair,'MovingROI',@(src,data)crossDrag...
+        (src,data,widget.glassbrain.UserData.vol,vol_size,labelVI,ax1,ax2,ax3,labelC,labelS,labelA,widget.coronal_image,...
+        widget.sagittal_image,widget.sagittal_crosshair,widget.axial_image,widget.axial_crosshair,p));
+    addlistener(widget.sagittal_crosshair,'MovingROI',@(src,data)crossDrag...
+        (src,data,widget.glassbrain.UserData.vol,vol_size,labelVI,ax1,ax2,ax3,labelC,labelS,labelA,widget.sagittal_image,...
+        widget.coronal_image,widget.coronal_crosshair,widget.axial_image,widget.axial_crosshair,p));
+    addlistener(widget.axial_crosshair,'MovingROI',@(src,data)crossDrag...
+        (src,data,widget.glassbrain.UserData.vol,vol_size,labelVI,ax1,ax2,ax3,labelC,labelS,labelA,widget.axial_image,...
+        widget.coronal_image,widget.coronal_crosshair,widget.sagittal_image,widget.sagittal_crosshair,p));
 
 end

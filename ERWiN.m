@@ -2,9 +2,9 @@ function ERWiN
 %ERWiN() - Electrode Reconstruction Widget for Neuroimaging
 %   This GUI widget was created to locate stereo-EEG contact coordinates.
 %   
-%   Version:        1.0
+%   Version:        1.1
 %   Contact:        jonathan.monney@unige.ch
-%   Last Update:    12/05/2022
+%   Last Update:    13/05/2022
 %
 %   Current Version Updates:
 %       - GUI created that allows i-EEG electrode location estimation based
@@ -20,6 +20,7 @@ function ERWiN
 %         locations with patient's pre-implantation scan (optional).
 %       - Glassbrain is a graphical output that displays located electrodes
 %         and a mesh of the CT (and/or T1) volume.
+%       - Rotation and permutation buttons added. (V1.1)
 %          
 %       Note: electrode parameters may only be modified or updated in the
 %       CT tab. After updating any electrode parameters, estimation must be
@@ -27,7 +28,8 @@ function ERWiN
 %       depth electrodes may be created (no grids or strips).
 % 
 %   Future Version Updates:
-%       - Allow for slice viewer rotation and permutation.
+%       - Rotation and permutation transformations must be taken into
+%         coordinate account for contacts.
 %       - Add option to not save Mgrid file.
 %       - Add option to save .txt file compatible with final BioImageSuite
 %         output file.
@@ -105,8 +107,7 @@ drawnow
 % ======================== CALLBACK DEFINITIONS ========================= %
 % ======================================================================= %
 
-widget              = defineCallbacks(widget);                  %#ok<NASGU> 
-
+widget              = defineCallbacks(widget);                  %#ok<NASGU>
 
 % ======================================================================= %
 % ========================== LOCAL FUNCTIONS ============================ %
