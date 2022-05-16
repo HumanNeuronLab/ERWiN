@@ -14,8 +14,8 @@ contact coordinates are created, the "Done" button is enabled and will
 allow to save all outputs.
 
 
-Current Version: 1.1
-Updated on: 	 13/05/2022
+Current Version: 0.1
+Updated on: 	 16/05/2022
 __________________________________________________________________________
 Current Version Updates:
        - GUI created that allows i-EEG electrode location estimation based
@@ -40,7 +40,8 @@ Current Version Updates:
        depth electrodes may be created (no grids or strips).
 
 Known bugs:
-       None reported.
+       - Loading second volume on anatomical tab returns error.
+       - Loading a new file on first tab (CT) causes odd conflict.
  
 Future Version Updates:
        - Rotation and permutation transformations must be taken into
