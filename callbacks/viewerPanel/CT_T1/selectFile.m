@@ -57,7 +57,7 @@ function selectFile(data, ~, widget)
             widget.glassbrain.UserData.vol = load_nifti([path file]);
             widget.glassbrain.UserData.vol = widget.glassbrain.UserData.vol.vol;
         else
-            widget.glassbrain.UserData.vol = load_mgh([path file]);
+            widget.glassbrain.UserData.vol = MRIread([path file]);
         end
         if widget.transform.UserData.permutations ~= 0
             for i = 1:widget.transform.UserData.permutations

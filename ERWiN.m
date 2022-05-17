@@ -20,7 +20,7 @@ function ERWiN
 %         locations with patient's pre-implantation scan (optional).
 %       - Glassbrain is a graphical output that displays located electrodes
 %         and a mesh of the CT (and/or T1) volume.
-%       - Rotation and permutation buttons added. (V1.1)
+%       - Rotation and permutation buttons added. (V0.1)
 %          
 %       Note: electrode parameters may only be modified or updated in the
 %       CT tab. After updating any electrode parameters, estimation must be

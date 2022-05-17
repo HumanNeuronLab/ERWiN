@@ -1,4 +1,4 @@
-function widget = mriVolUpdate(widget)
+function widget = mriVolUpdate(widget,currTab)
 
     if isfield(widget.glassbrain.UserData,'electrodes')
         for i = 1:length(fieldnames(widget.glassbrain.UserData.electrodes))
@@ -15,7 +15,9 @@ function widget = mriVolUpdate(widget)
             end
         end
     end
-    if isfield(widget.glassbrain.UserData,'T1vol') && ~(isfield(widget.glassbrain.UserData,'T1volView'))
+    if isfield(widget.glassbrain.UserData,'T1vol') && ...
+            ~(isfield(widget.glassbrain.UserData,'T1volView') && ...
+            isequal(currTab,'T1'))
         hold(widget.glassbrain.UserData.axes, "on");
         widget.glassbrain.UserData.T1volView = patch(isosurface(widget.glassbrain.UserData.T1vol),'Parent',widget.glassbrain.UserData.axes,'FaceAlpha',0.15,'FaceColor',[0.4,0.5,0.8],'EdgeColor','none','Visible','off');
         widget.glassbrain.UserData.T1volView.FaceLighting = 'gouraud';
@@ -25,7 +27,9 @@ function widget = mriVolUpdate(widget)
         widget.glassbrain.UserData.checkboxT1.Value = 0;
     end
 
-    if isfield(widget.glassbrain.UserData,'CTvol') && ~(isfield(widget.glassbrain.UserData,'CTvolView'))
+    if isfield(widget.glassbrain.UserData,'CTvol') && ...
+            ~(isfield(widget.glassbrain.UserData,'CTvolView') && ...
+            isequal(currTab,'CT'))
         hold(widget.glassbrain.UserData.axes, "on");
         widget.glassbrain.UserData.CTvolView = patch(isosurface(widget.glassbrain.UserData.CTvol,1200),'Parent',widget.glassbrain.UserData.axes,'FaceAlpha',0.10,'FaceColor',[0.7,0.7,0.7],'EdgeColor','none','Visible','off');
         widget.glassbrain.UserData.CTvolView.FaceLighting = 'none';
