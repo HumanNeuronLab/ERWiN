@@ -176,13 +176,9 @@ function addonsCheck
 end
 
 function widget = logoDisplay(widget,scriptPath)
-    [iconUNIGE, ~, alphaUNIGE] = imread(...
-        [scriptPath filesep 'assets' filesep 'UNIGE_logo.png']);
-    ax_logoUNIGE = axes('Parent',widget.fig);
-    widget.logo_UNIGE = imshow(iconUNIGE,'Parent',ax_logoUNIGE);
-    widget.logo_UNIGE.AlphaData = alphaUNIGE;
-    ax_logoUNIGE.Units = 'pixels';
-    ax_logoUNIGE.Position = [10 10 270 127];
+    logoPath = [scriptPath filesep 'assets' filesep 'UNIGE_logo.png'];
+    widget.logoUnige = uiimage('Parent',widget.fig,'ImageSource',logoPath,...
+        'Position',[10 10 270 127]);
 end
 
 end
