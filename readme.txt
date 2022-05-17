@@ -40,7 +40,7 @@ Current Version Updates:
        depth electrodes may be created (no grids or strips).
 
 Known bugs:
-       - Loading a new file on first tab (CT) causes odd conflict.
+       - Glassbrain tab requires major work.
  
 Future Version Updates:
        - Rotation and permutation transformations must be taken into
