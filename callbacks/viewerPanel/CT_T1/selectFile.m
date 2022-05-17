@@ -1,7 +1,19 @@
 function selectFile(data, ~, widget)
 
     tab_MRI = widget.panel_CentralTabsMRI.SelectedTab;
-    switch tab_MRI.Tag
+    if isequal(widget.transform.UserData.action,'none')
+        viewerV = tab_MRI.Tag;
+        mainView = 1;
+    else
+        viewerV = data;
+        if isequal(data,'CT')
+            mainView = 1;
+        else
+            mainView = 0;
+        end
+    end
+
+    switch viewerV
         case 'CT'
             ax1 = widget.ax_sliceView1_CT;
             ax2 = widget.ax_sliceView2_CT;
@@ -12,6 +24,8 @@ function selectFile(data, ~, widget)
             labelButton = widget.label_selectNifti_CT;
             labelVI = widget.label_voxelIntensity_CT;
             panel4 = widget.panel_sliceView4_CT;
+            checkbox = 'checkboxCT';
+            volName = 'CTvol';
         case 'T1'
             ax1 = widget.ax_sliceView1_T1;
             ax2 = widget.ax_sliceView2_T1;
@@ -22,6 +36,8 @@ function selectFile(data, ~, widget)
             labelButton = widget.label_selectNifti_T1;
             labelVI = widget.label_voxelIntensity_T1;
             panel4 = widget.panel_sliceView4_T1;
+            checkbox = 'checkboxT1';
+            volName = 'T1vol';
     end
 
     cMap = 'bone';
@@ -43,26 +59,44 @@ function selectFile(data, ~, widget)
         else
             widget.glassbrain.UserData.vol = load_mgh([path file]);
         end
-    end
-
-    if isequal(widget.transform.UserData.action,'permute')
-        widget.glassbrain.UserData.vol = permute(...
-            widget.glassbrain.UserData.vol,[3 1 2]);
-        widget.transform.UserData.permutations = widget.transform.UserData.permutations+1;
-        if widget.transform.UserData.permutations == 3
-            widget.transform.UserData.permutations = 0;
+        if widget.transform.UserData.permutations ~= 0
+            for i = 1:widget.transform.UserData.permutations
+                widget.glassbrain.UserData.vol = permute(...
+                    widget.glassbrain.UserData.vol,[3 1 2]);
+            end
         end
-        widget.transform.UserData.action = 'none';
+        if widget.transform.UserData.rotations ~= 0
+            for i = 1:widget.transform.UserData.rotations
+                widget.glassbrain.UserData.vol = rot90(widget.glassbrain.UserData.vol);
+            end
+        end
+    elseif isequal(widget.transform.UserData.action,'permute')
+        switch data
+            case 'CT'
+                widget.glassbrain.UserData.vol = permute(...
+                    widget.glassbrain.UserData.CTvol,[3 1 2]);
+                widget.transform.UserData.permutations = widget.transform.UserData.permutations+1;
+                if widget.transform.UserData.permutations == 3
+                    widget.transform.UserData.permutations = 0;
+                end
+            case 'T1'
+                widget.glassbrain.UserData.vol = permute(...
+                    widget.glassbrain.UserData.T1vol,[3 1 2]);
+        end
     elseif isequal(widget.transform.UserData.action,'rotate')
-        widget.glassbrain.UserData.vol = rot90(widget.glassbrain.UserData.vol);
-        widget.transform.UserData.rotations = widget.transform.UserData.rotations+1;
-        if widget.transform.UserData.rotations == 4
-            widget.transform.UserData.rotations = 0;
+        switch data
+            case 'CT'
+                widget.glassbrain.UserData.vol = rot90(widget.glassbrain.UserData.CTvol);
+                widget.transform.UserData.rotations = widget.transform.UserData.rotations+1;
+                if widget.transform.UserData.rotations == 4
+                    widget.transform.UserData.rotations = 0;
+                end
+            case 'T1'
+                widget.glassbrain.UserData.vol = rot90(widget.glassbrain.UserData.T1vol);
         end
-        widget.transform.UserData.action = 'none';
     end
 
-    if isequal(tab_MRI.Tag,'CT')
+    if isequal(tab_MRI.Tag,'CT') && mainView == 1
         widget.params.panel_ElectrodeParams.Enable = 'on';
         widget.tree_Summary.Enable = 'on';
         expand(widget.tree_Summary.Children(1));
@@ -72,11 +106,19 @@ function selectFile(data, ~, widget)
             widget.glassbrain.UserData.CTvol = [];
             widget.glassbrain.UserData = rmfield(widget.glassbrain.UserData,'CTvol');
         end
+        if isfield(widget.glassbrain.UserData,'CTvolView')
+            widget.glassbrain.UserData.CTvolView = [];
+            widget.glassbrain.UserData = rmfield(widget.glassbrain.UserData,'CTvolView');
+        end
         widget.glassbrain.UserData.CTvol = widget.glassbrain.UserData.vol;%permute(vol,[1 3 2]);
-    elseif isequal(tab_MRI.Tag,'T1')
+    elseif isequal(tab_MRI.Tag,'T1') || mainView == 0
         if isfield(widget.glassbrain.UserData,'T1vol')
             widget.glassbrain.UserData.T1vol = [];
             widget.glassbrain.UserData = rmfield(widget.glassbrain.UserData,'T1vol');
+        end
+        if isfield(widget.glassbrain.UserData,'T1volView')
+            widget.glassbrain.UserData.T1volView = [];
+            widget.glassbrain.UserData = rmfield(widget.glassbrain.UserData,'T1volView');
         end
         for i = 1:length(tab_MRI.Parent.Children)
             indexer1(i) = {tab_MRI.Parent.Children(i).Tag};
@@ -85,34 +127,34 @@ function selectFile(data, ~, widget)
         for i = 1:length(tab_MRI.Parent.Children(CT_tab).Children)
             indexer2(i) = {tab_MRI.Parent.Children(CT_tab).Children(i).Tag};
         end
-        widget.paramsPanel1 = find(contains(indexer2,'slice widget.params panel'));
-        for i = 1:length(tab_MRI.Parent.Children(CT_tab).Children(widget.paramsPanel1).Children)
-            indexer3(i) = {tab_MRI.Parent.Children(CT_tab).Children(widget.paramsPanel1).Children(i).Tag};
+        paramsPanel1 = find(contains(indexer2,'slice params panel'));
+        for i = 1:length(tab_MRI.Parent.Children(CT_tab).Children(paramsPanel1).Children)
+            indexer3(i) = {tab_MRI.Parent.Children(CT_tab).Children(paramsPanel1).Children(i).Tag};
         end
         sliderContact1 = find(contains(indexer3,'Contact slider'));
         labelContact1 = find(contains(indexer3,'Contact label'));
-        if isequal(tab_MRI.Parent.Children(CT_tab).Children(widget.paramsPanel1).Children(sliderContact1).Visible,'on')
+        if isequal(tab_MRI.Parent.Children(CT_tab).Children(paramsPanel1).Children(sliderContact1).Visible,'on')
            for i = 1:length(tab_MRI.Children)
                 indexer4(i) = {tab_MRI.Children(i).Tag};
             end
-            widget.paramsPanel = find(contains(indexer4,'slice widget.params panel'));
-            for i = 1:length(tab_MRI.Children(widget.paramsPanel).Children)
-                indexer5(i) = {tab_MRI.Children(widget.paramsPanel).Children(i).Tag};
+            paramsPanel = find(contains(indexer4,'slice params panel'));
+            for i = 1:length(tab_MRI.Children(paramsPanel).Children)
+                indexer5(i) = {tab_MRI.Children(paramsPanel).Children(i).Tag};
             end
             sliderContact = find(contains(indexer5,'Contact slider'));
             labelContact = find(contains(indexer5,'Contact label'));
-            tab_MRI.Children(widget.paramsPanel).Children(sliderContact).Limits = tab_MRI.Parent.Children(CT_tab).Children(widget.paramsPanel1).Children(sliderContact1).Limits;
-            tab_MRI.Children(widget.paramsPanel).Children(sliderContact).Value = tab_MRI.Parent.Children(CT_tab).Children(widget.paramsPanel1).Children(sliderContact1).Value;
-            tab_MRI.Children(widget.paramsPanel).Children(sliderContact).MajorTicks = tab_MRI.Parent.Children(CT_tab).Children(widget.paramsPanel1).Children(sliderContact1).MajorTicks;
-            tab_MRI.Children(widget.paramsPanel).Children(labelContact).Text = tab_MRI.Parent.Children(CT_tab).Children(widget.paramsPanel1).Children(labelContact1).Text;
-            tab_MRI.Children(widget.paramsPanel).Children(labelContact).Visible = 'on';
-            tab_MRI.Children(widget.paramsPanel).Children(sliderContact).Visible = 'on';
+            tab_MRI.Children(paramsPanel).Children(sliderContact).Limits = tab_MRI.Parent.Children(CT_tab).Children(paramsPanel1).Children(sliderContact1).Limits;
+            tab_MRI.Children(paramsPanel).Children(sliderContact).Value = tab_MRI.Parent.Children(CT_tab).Children(paramsPanel1).Children(sliderContact1).Value;
+            tab_MRI.Children(paramsPanel).Children(sliderContact).MajorTicks = tab_MRI.Parent.Children(CT_tab).Children(paramsPanel1).Children(sliderContact1).MajorTicks;
+            tab_MRI.Children(paramsPanel).Children(labelContact).Text = tab_MRI.Parent.Children(CT_tab).Children(paramsPanel1).Children(labelContact1).Text;
+            tab_MRI.Children(paramsPanel).Children(labelContact).Visible = 'on';
+            tab_MRI.Children(paramsPanel).Children(sliderContact).Visible = 'on';
         end
         widget.glassbrain.UserData.T1vol = widget.glassbrain.UserData.vol;%permute(vol,[1 3 2]);
     end
     
     %vol = rot90(vol);
-    vol_size = size(widget.glassbrain.UserData.vol);
+    vol_size = size(widget.glassbrain.UserData.(volName));
     ax1.XLim = [0,vol_size(2)];
     ax1.YLim = [0,vol_size(1)];
     ax2.XLim = [0,vol_size(3)];
@@ -127,10 +169,10 @@ function selectFile(data, ~, widget)
     labelS.Text = ['Sagittal Slice: ' mat2str([slice_selection,slice_selection,slice_selection])];
     labelA.Text = ['Axial Slice: ' mat2str([slice_selection,slice_selection,slice_selection])];
 
-    coronal_slice = widget.glassbrain.UserData.vol(:,:,slice_selection);
-    sagittal_slice = widget.glassbrain.UserData.vol(:,slice_selection,:);
+    coronal_slice = widget.glassbrain.UserData.(volName)(:,:,slice_selection);
+    sagittal_slice = widget.glassbrain.UserData.(volName)(:,slice_selection,:);
     sagittal_slice = reshape(sagittal_slice,[vol_size(1),vol_size(3)]);
-    axial_slice = widget.glassbrain.UserData.vol(slice_selection,:,:);
+    axial_slice = widget.glassbrain.UserData.(volName)(slice_selection,:,:);
     axial_slice = reshape(axial_slice,[vol_size(2),vol_size(3)]);
     axial_slice = rot90(axial_slice);
     
@@ -197,20 +239,20 @@ function selectFile(data, ~, widget)
     end
 
 
-    widget = mriVolUpdate(widget);
+    widget.glassbrain.UserData.(checkbox).Enable = 'on';
     drawnow
     widget.fig.Pointer = 'arrow';
     widget.button_permuteVol_CT.Enable = 'on';
     widget.button_rotateVol_CT.Enable = 'on';
 
     addlistener(widget.coronal_crosshair,'MovingROI',@(src,data)crossDrag...
-        (src,data,widget.glassbrain.UserData.vol,vol_size,labelVI,ax1,ax2,ax3,labelC,labelS,labelA,widget.coronal_image,...
+        (src,data,widget.glassbrain.UserData.(volName),vol_size,labelVI,ax1,ax2,ax3,labelC,labelS,labelA,widget.coronal_image,...
         widget.sagittal_image,widget.sagittal_crosshair,widget.axial_image,widget.axial_crosshair,p));
     addlistener(widget.sagittal_crosshair,'MovingROI',@(src,data)crossDrag...
-        (src,data,widget.glassbrain.UserData.vol,vol_size,labelVI,ax1,ax2,ax3,labelC,labelS,labelA,widget.sagittal_image,...
+        (src,data,widget.glassbrain.UserData.(volName),vol_size,labelVI,ax1,ax2,ax3,labelC,labelS,labelA,widget.sagittal_image,...
         widget.coronal_image,widget.coronal_crosshair,widget.axial_image,widget.axial_crosshair,p));
     addlistener(widget.axial_crosshair,'MovingROI',@(src,data)crossDrag...
-        (src,data,widget.glassbrain.UserData.vol,vol_size,labelVI,ax1,ax2,ax3,labelC,labelS,labelA,widget.axial_image,...
+        (src,data,widget.glassbrain.UserData.(volName),vol_size,labelVI,ax1,ax2,ax3,labelC,labelS,labelA,widget.axial_image,...
         widget.coronal_image,widget.coronal_crosshair,widget.sagittal_image,widget.sagittal_crosshair,p));
 
 end

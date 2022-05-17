@@ -14,8 +14,8 @@ contact coordinates are created, the "Done" button is enabled and will
 allow to save all outputs.
 
 
-Current Version: 0.1
-Updated on: 	 16/05/2022
+Current Version: 0.2
+Updated on: 	 17/05/2022
 __________________________________________________________________________
 Current Version Updates:
        - GUI created that allows i-EEG electrode location estimation based
@@ -32,7 +32,7 @@ Current Version Updates:
        - Glassbrain is a graphical output that displays located electrodes
          and a mesh of the CT (and/or T1) volume.
        - AutoUpdate from Github fix.
-       - Rotation and permutation buttons added. (V1.1)
+       - Rotation and permutation buttons added.
           
        Note: electrode parameters may only be modified or updated in the
        CT tab. After updating any electrode parameters, estimation must be
@@ -40,7 +40,6 @@ Current Version Updates:
        depth electrodes may be created (no grids or strips).
 
 Known bugs:
-       - Loading second volume on anatomical tab returns error.
        - Loading a new file on first tab (CT) causes odd conflict.
  
 Future Version Updates:

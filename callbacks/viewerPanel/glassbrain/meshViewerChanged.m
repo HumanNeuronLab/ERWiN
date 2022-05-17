@@ -1,5 +1,5 @@
 function meshViewerChanged(data,evt,widget)
-    
+    widget = mriVolUpdate(widget);
     if evt.Value == 1 && isequal(data.Text,'View CT')
         widget.glassbrain.UserData.CTvolView.Visible = 'on';
     elseif evt.Value == 1 && isequal(data.Text,'View T1')

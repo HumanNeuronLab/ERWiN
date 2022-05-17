@@ -22,7 +22,6 @@ function widget = mriVolUpdate(widget)
         widget.glassbrain.UserData.T1volView.AmbientStrength = 0.8;
         widget.glassbrain.UserData.T1volView.SpecularStrength = 0.9;
         widget.glassbrain.UserData.T1volView.DiffuseStrength = 0.9;
-        widget.glassbrain.UserData.checkboxT1.Enable = 'on';
         widget.glassbrain.UserData.checkboxT1.Value = 0;
     end
 
@@ -33,7 +32,6 @@ function widget = mriVolUpdate(widget)
         widget.glassbrain.UserData.CTvolView.AmbientStrength = 0.8;
         widget.glassbrain.UserData.CTvolView.SpecularStrength = 0.9;
         widget.glassbrain.UserData.CTvolView.DiffuseStrength = 0.9;
-        widget.glassbrain.UserData.checkboxCT.Enable = 'on';
         widget.glassbrain.UserData.checkboxCT.Value = 0;
     end
     
