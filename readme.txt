@@ -14,8 +14,8 @@ contact coordinates are created, the "Done" button is enabled and will
 allow to save all outputs.
 
 
-Current Version: 0.2
-Updated on: 	 17/05/2022
+Current Version: 0.3
+Updated on: 	 20/05/2022
 __________________________________________________________________________
 Current Version Updates:
        - GUI created that allows i-EEG electrode location estimation based

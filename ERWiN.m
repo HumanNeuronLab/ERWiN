@@ -2,9 +2,9 @@ function ERWiN
 %ERWiN() - Electrode Reconstruction Widget for Neuroimaging
 %   This GUI widget was created to locate stereo-EEG contact coordinates.
 %   
-%   Version:        0.2
+%   Version:        0.3
 %   Contact:        jonathan.monney@unige.ch
-%   Last Update:    17/05/2022
+%   Last Update:    20/05/2022
 %
 %   Current Version Updates:
 %       - GUI created that allows i-EEG electrode location estimation based

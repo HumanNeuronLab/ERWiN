@@ -84,7 +84,7 @@ function estimateButtonPush (~, ~, widget)
             delete(widget.glassbrain.UserData.electrodes.(field).ElectrodevolView);
             widget.glassbrain.UserData.electrodes.(field) = rmfield(widget.glassbrain.UserData.electrodes.(field),'ElectrodevolView');
         end
-        widget = mriVolUpdate(widget);
+        %widget = mriVolUpdate(widget);
         
     catch
         widget.fig.UserData.(field).Estimation = 'FAILED';
