@@ -14,7 +14,7 @@ contact coordinates are created, the "Done" button is enabled and will
 allow to save all outputs.
 
 
-Current Version: 0.3
+Current Version: 0.4
 Updated on: 	 20/05/2022
 __________________________________________________________________________
 Current Version Updates:
@@ -33,6 +33,7 @@ Current Version Updates:
          and a mesh of the CT (and/or T1) volume.
        - AutoUpdate from Github fix.
        - Rotation and permutation buttons added.
+       - Output .mgrids may be viewed in BioImage Suite 3.0
           
        Note: electrode parameters may only be modified or updated in the
        CT tab. After updating any electrode parameters, estimation must be
