@@ -1,5 +1,5 @@
 function crossDrag(src,data,vol,vol_size,labelVI,ax1,ax2,ax3,labelC,labelS,labelA,src_image,...
-        second_image,second_crosshair,third_image,third_crosshair,p)
+        second_image,second_crosshair,third_image,third_crosshair,p,widget)
 
     switch src.Tag(1)
         case 'c' % coronal crosshair moved: 2nd = sagittal, 3rd = axial
@@ -52,4 +52,5 @@ function crossDrag(src,data,vol,vol_size,labelVI,ax1,ax2,ax3,labelC,labelS,label
     p.slider_Y.Value = pos(2);
     p.field_Z.Value = pos(3);
     p.slider_Z.Value = pos(3);
+    widget = contactDotDisplay(widget);
 end

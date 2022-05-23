@@ -86,7 +86,7 @@ function estimateButtonPush (~, ~, widget)
             widget.glassbrain.UserData.electrodes.(field) = rmfield(widget.glassbrain.UserData.electrodes.(field),'ElectrodevolView');
         end
         %widget = mriVolUpdate(widget);
-        
+        widget = contactDotDisplay(widget);
     catch
         widget.fig.UserData.(field).Estimation = 'FAILED';
         warning('Contact coordinates estimation failed - Please try updating coordinates');

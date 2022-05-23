@@ -26,13 +26,11 @@ function selectFile(data, ~, widget)
             panel4 = widget.panel_sliceView4_CT;
             checkbox = 'checkboxCT';
             volName = 'CTvol';
-            if isequal(widget.transform.UserData.action,'none')
-                try
-                   widget.ax_sliceView1_CT.Children.delete;
-                   widget.ax_sliceView2_CT.Children.delete;
-                   widget.ax_sliceView3_CT.Children.delete;
-                catch
-                end
+            try
+               widget.ax_sliceView1_CT.Children.delete;
+               widget.ax_sliceView2_CT.Children.delete;
+               widget.ax_sliceView3_CT.Children.delete;
+            catch
             end
         case 'T1'
             ax1 = widget.ax_sliceView1_T1;
@@ -46,13 +44,11 @@ function selectFile(data, ~, widget)
             panel4 = widget.panel_sliceView4_T1;
             checkbox = 'checkboxT1';
             volName = 'T1vol';
-            if isequal(widget.transform.UserData.action,'none')
-                try
-                   widget.ax_sliceView1_CT.Children.delete;
-                   widget.ax_sliceView2_CT.Children.delete;
-                   widget.ax_sliceView3_CT.Children.delete;
-                catch
-                end
+            try
+               widget.ax_sliceView1_T1.Children.delete;
+               widget.ax_sliceView2_T1.Children.delete;
+               widget.ax_sliceView3_T1.Children.delete;
+            catch
             end
     end
 
@@ -70,8 +66,7 @@ function selectFile(data, ~, widget)
         labelButton.Text = file;
         data.BackgroundColor = [0.94,0.94,0.94];
         if contains(file,'.nii')
-            widget.glassbrain.UserData.vol = load_nifti([path file]);
-            widget.glassbrain.UserData.vol = widget.glassbrain.UserData.vol.vol;
+            widget.glassbrain.UserData.vol = niftiread([path file]);
         else
             widget.glassbrain.UserData.vol = MRIread([path file]);
         end
@@ -86,19 +81,20 @@ function selectFile(data, ~, widget)
                 widget.glassbrain.UserData.vol = rot90(widget.glassbrain.UserData.vol);
             end
         end
-    elseif isequal(widget.transform.UserData.action,'permute')
-        switch data
-            case 'CT'
-                widget.glassbrain.UserData.vol = permute(...
-                    widget.glassbrain.UserData.CTvol,[3 1 2]);
-                widget.transform.UserData.permutations = widget.transform.UserData.permutations+1;
-                if widget.transform.UserData.permutations == 3
-                    widget.transform.UserData.permutations = 0;
-                end
-            case 'T1'
-                widget.glassbrain.UserData.vol = permute(...
-                    widget.glassbrain.UserData.T1vol,[3 1 2]);
-        end
+%     elseif isequal(widget.transform.UserData.action,'permute')
+%         switch data
+%             case 'CT'
+%                 widget.transform.UserData.permutations = widget.transform.UserData.permutations+1;
+%                 if widget.transform.UserData.permutations == 3
+%                     widget.transform.UserData.permutations = 0;
+%                 else
+%                     widget.glassbrain.UserData.vol = permute(...
+%                     widget.glassbrain.UserData.CTvol,[3 1 2]);
+%                 end
+%             case 'T1'
+%                 widget.glassbrain.UserData.vol = permute(...
+%                     widget.glassbrain.UserData.T1vol,[3 1 2]);
+%         end
     elseif isequal(widget.transform.UserData.action,'rotate')
         switch data
             case 'CT'
@@ -166,7 +162,7 @@ function selectFile(data, ~, widget)
             tab_MRI.Children(paramsPanel).Children(labelContact).Visible = 'on';
             tab_MRI.Children(paramsPanel).Children(sliderContact).Visible = 'on';
         end
-        widget.glassbrain.UserData.T1vol = widget.glassbrain.UserData.vol;%permute(vol,[1 3 2]);
+        widget.glassbrain.UserData.T1vol = widget.glassbrain.UserData.vol;
     end
     
     %vol = rot90(vol);
@@ -263,12 +259,12 @@ function selectFile(data, ~, widget)
 
     addlistener(widget.coronal_crosshair,'MovingROI',@(src,data)crossDrag...
         (src,data,widget.glassbrain.UserData.(volName),vol_size,labelVI,ax1,ax2,ax3,labelC,labelS,labelA,widget.coronal_image,...
-        widget.sagittal_image,widget.sagittal_crosshair,widget.axial_image,widget.axial_crosshair,p));
+        widget.sagittal_image,widget.sagittal_crosshair,widget.axial_image,widget.axial_crosshair,p,widget));
     addlistener(widget.sagittal_crosshair,'MovingROI',@(src,data)crossDrag...
         (src,data,widget.glassbrain.UserData.(volName),vol_size,labelVI,ax1,ax2,ax3,labelC,labelS,labelA,widget.sagittal_image,...
-        widget.coronal_image,widget.coronal_crosshair,widget.axial_image,widget.axial_crosshair,p));
+        widget.coronal_image,widget.coronal_crosshair,widget.axial_image,widget.axial_crosshair,p,widget));
     addlistener(widget.axial_crosshair,'MovingROI',@(src,data)crossDrag...
         (src,data,widget.glassbrain.UserData.(volName),vol_size,labelVI,ax1,ax2,ax3,labelC,labelS,labelA,widget.axial_image,...
-        widget.coronal_image,widget.coronal_crosshair,widget.sagittal_image,widget.sagittal_crosshair,p));
+        widget.coronal_image,widget.coronal_crosshair,widget.sagittal_image,widget.sagittal_crosshair,p,widget));
 
 end

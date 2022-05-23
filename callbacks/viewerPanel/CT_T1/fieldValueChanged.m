@@ -41,7 +41,7 @@ function fieldValueChanged(data,evt,widget)
             
             pos = [evt.Value,field2.Value,field3.Value];
             for i = 1:length(ax1.Children)
-                if ~isequal(ax1.Children(i).Type,'image')
+                if isequal(ax1.Children(i).Type,'images.roi.crosshair')
                     ax1.Children(i).Position = [pos(1) pos(2)];
                 end
             end
@@ -49,12 +49,12 @@ function fieldValueChanged(data,evt,widget)
                 if isequal(ax2.Children(i).Type,'image')
                     ax2.Children(i).CData = reshape(vol(:,pos(1),:),[vol_size(1),vol_size(3)]);
                     ax2.Children(i).Tag = num2str(pos(1));
-                else
+                elseif isequal(ax2.Children(i).Type,'images.roi.crosshair')
                     ax2.Children(i).Position = [pos(3) pos(2)];
                 end
             end
             for i = 1:length(ax3.Children)
-                if ~isequal(ax3.Children(i).Type,'image')
+                if isequal(ax3.Children(i).Type,'images.roi.crosshair')
                     ax3.Children(i).Position = [pos(1) vol_size(3)-pos(3)+1];
                 end
             end
@@ -64,12 +64,12 @@ function fieldValueChanged(data,evt,widget)
             
             pos = [field1.Value,evt.Value,field3.Value];
             for i = 1:length(ax1.Children)
-                if ~isequal(ax1.Children(i).Type,'image')
+                if isequal(ax1.Children(i).Type,'images.roi.crosshair')
                     ax1.Children(i).Position = [pos(1) pos(2)];
                 end
             end
             for i = 1:length(ax2.Children)
-                if ~isequal(ax2.Children(i).Type,'image')
+                if isequal(ax2.Children(i).Type,'images.roi.crosshair')
                     ax2.Children(i).Position = [pos(3) pos(2)];
                 end
             end
@@ -77,7 +77,7 @@ function fieldValueChanged(data,evt,widget)
                 if isequal(ax3.Children(i).Type,'image')
                     ax3.Children(i).CData = rot90(reshape(vol(pos(2),:,:),[vol_size(2),vol_size(3)]));
                     ax3.Children(i).Tag = num2str(pos(2));
-                else
+                elseif isequal(ax3.Children(i).Type,'images.roi.crosshair')
                     ax3.Children(i).Position = [pos(1) vol_size(3)-pos(3)+1];
                 end
             end
@@ -90,17 +90,17 @@ function fieldValueChanged(data,evt,widget)
                 if isequal(ax1.Children(i).Type,'image')
                     ax1.Children(i).CData = vol(:,:,pos(3));
                     ax1.Children(i).Tag = num2str(pos(3));
-                else
+                elseif isequal(ax1.Children(i).Type,'images.roi.crosshair')
                     ax1.Children(i).Position = [pos(1) pos(2)];
                 end
             end
             for i = 1:length(ax2.Children)
-                if ~isequal(ax2.Children(i).Type,'image')
+                if isequal(ax2.Children(i).Type,'images.roi.crosshair')
                     ax2.Children(i).Position = [pos(3) pos(2)];
                 end
             end
             for i = 1:length(ax3.Children)
-                if ~isequal(ax3.Children(i).Type,'image')
+                if isequal(ax3.Children(i).Type,'images.roi.crosshair')
                     ax3.Children(i).Position = [pos(1) vol_size(3)-pos(3)+1];
                 end
             end
