@@ -78,13 +78,13 @@ function estimateButtonPush (~, ~, widget)
         widget.label_contacts_CT.Visible = 'on';
         widget.button_correctContacts.Visible = 'on';
         widget.button_correctContacts.Enable = 'off';
+        widget.glassbrain.UserData.electrodes.(field).Color = widget.glassbrain.UserData.ColorList(idx,:);
         widget.glassbrain.UserData.electrodes.(field).coord = [];
         widget.glassbrain.UserData.electrodes.(field).coord = widget.fig.UserData.(field).contact;
         if isfield(widget.glassbrain.UserData.electrodes.(field),'ElectrodevolView') % delete old electrode line in 3d view
             delete(widget.glassbrain.UserData.electrodes.(field).ElectrodevolView);
             widget.glassbrain.UserData.electrodes.(field) = rmfield(widget.glassbrain.UserData.electrodes.(field),'ElectrodevolView');
         end
-        widget.glassbrain.UserData.electrodes.(field).Color = widget.glassbrain.UserData.ColorList(idx,:);
         %widget = mriVolUpdate(widget);
         
     catch

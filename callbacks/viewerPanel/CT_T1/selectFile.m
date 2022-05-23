@@ -26,6 +26,14 @@ function selectFile(data, ~, widget)
             panel4 = widget.panel_sliceView4_CT;
             checkbox = 'checkboxCT';
             volName = 'CTvol';
+            if isequal(widget.transform.UserData.action,'none')
+                try
+                   widget.ax_sliceView1_CT.Children.delete;
+                   widget.ax_sliceView2_CT.Children.delete;
+                   widget.ax_sliceView3_CT.Children.delete;
+                catch
+                end
+            end
         case 'T1'
             ax1 = widget.ax_sliceView1_T1;
             ax2 = widget.ax_sliceView2_T1;
@@ -38,6 +46,14 @@ function selectFile(data, ~, widget)
             panel4 = widget.panel_sliceView4_T1;
             checkbox = 'checkboxT1';
             volName = 'T1vol';
+            if isequal(widget.transform.UserData.action,'none')
+                try
+                   widget.ax_sliceView1_CT.Children.delete;
+                   widget.ax_sliceView2_CT.Children.delete;
+                   widget.ax_sliceView3_CT.Children.delete;
+                catch
+                end
+            end
     end
 
     cMap = 'bone';

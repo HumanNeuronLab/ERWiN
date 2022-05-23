@@ -7,22 +7,9 @@ function ERWiN
 %   Last Update:    20/05/2022
 %
 %   Current Version Updates:
-%       - GUI created that allows i-EEG electrode location estimation based
-%         on the deepest contact's position and a second contact position
-%         placed on the electrode's shaft.
-%         Required parameters for each electrode are Name, Number of
-%         Contacts, Distance Between Contacts (mm), Deepest Contact's
-%         Coordinates, Second Contact Coordinates.
-%       - "Snapping", when enabled, searches for the voxel with the highest
-%         intensity in a 2x2x2 volumetric kernel (to more accurately place 
-%         the electrode's contact).
-%       - A T1 file may also be loaded to anatomically compare electrode 
-%         locations with patient's pre-implantation scan (optional).
-%       - Glassbrain is a graphical output that displays located electrodes
-%         and a mesh of the CT (and/or T1) volume.
-%       - Rotation and permutation buttons added. (V0.1)
 %       - Output .mgrids may be viewed in BioImage Suite 3.0
 %       - Fixed bug wrgds to color assignment
+%       - Deletes old Children of Parent axes when new volume loaded
 %          
 %       Note: electrode parameters may only be modified or updated in the
 %       CT tab. After updating any electrode parameters, estimation must be
