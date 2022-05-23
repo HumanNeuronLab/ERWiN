@@ -4,7 +4,6 @@ function widget = mriVolUpdate(widget,currTab)
         for i = 1:length(fieldnames(widget.glassbrain.UserData.electrodes))
             field = ['Electrode' num2str(i)];
             if ~(isfield(widget.glassbrain.UserData.electrodes.(field),'ElectrodevolView'))
-                widget.glassbrain.UserData.electrodes.(field).Color = widget.glassbrain.UserData.ColorList(i,:);
                 hold(widget.glassbrain.UserData.axes, "on");
                 widget.glassbrain.UserData.electrodes.(field).ElectrodevolView = plot3(widget.glassbrain.UserData.electrodes.(field).coord(:,1),widget.glassbrain.UserData.electrodes.(field).coord(:,2),widget.glassbrain.UserData.electrodes.(field).coord(:,3),'Parent',widget.glassbrain.UserData.axes);
                 widget.glassbrain.UserData.electrodes.(field).ElectrodevolView.Color = widget.glassbrain.UserData.electrodes.(field).Color;

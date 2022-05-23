@@ -84,6 +84,7 @@ function estimateButtonPush (~, ~, widget)
             delete(widget.glassbrain.UserData.electrodes.(field).ElectrodevolView);
             widget.glassbrain.UserData.electrodes.(field) = rmfield(widget.glassbrain.UserData.electrodes.(field),'ElectrodevolView');
         end
+        widget.glassbrain.UserData.electrodes.(field).Color = widget.glassbrain.UserData.ColorList(idx,:);
         %widget = mriVolUpdate(widget);
         
     catch
