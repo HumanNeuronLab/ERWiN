@@ -70,31 +70,36 @@ function selectFile(data, ~, widget)
         else
             widget.glassbrain.UserData.vol = MRIread([path file]);
         end
-        if widget.transform.UserData.permutations ~= 0
-            for i = 1:widget.transform.UserData.permutations
-                widget.glassbrain.UserData.vol = permute(...
-                    widget.glassbrain.UserData.vol,[3 1 2]);
-            end
-        end
-        if widget.transform.UserData.rotations ~= 0
-            for i = 1:widget.transform.UserData.rotations
-                widget.glassbrain.UserData.vol = rot90(widget.glassbrain.UserData.vol);
-            end
-        end
-%     elseif isequal(widget.transform.UserData.action,'permute')
-%         switch data
-%             case 'CT'
-%                 widget.transform.UserData.permutations = widget.transform.UserData.permutations+1;
-%                 if widget.transform.UserData.permutations == 3
-%                     widget.transform.UserData.permutations = 0;
-%                 else
-%                     widget.glassbrain.UserData.vol = permute(...
-%                     widget.glassbrain.UserData.CTvol,[3 1 2]);
-%                 end
-%             case 'T1'
+
+        
+%         if widget.transform.UserData.permutations ~= 0
+%             for i = 1:widget.transform.UserData.permutations
 %                 widget.glassbrain.UserData.vol = permute(...
-%                     widget.glassbrain.UserData.T1vol,[3 1 2]);
+%                     widget.glassbrain.UserData.vol,[3 1 2]);
+%             end
 %         end
+%         if widget.transform.UserData.rotations ~= 0
+%             for i = 1:widget.transform.UserData.rotations
+%                 widget.glassbrain.UserData.vol = rot90(widget.glassbrain.UserData.vol);
+%             end
+%         end
+
+
+        widget.glassbrain.UserData.vol = rot90(widget.glassbrain.UserData.vol);
+    elseif isequal(widget.transform.UserData.action,'permute')
+        switch data
+            case 'CT'
+                widget.transform.UserData.permutations = widget.transform.UserData.permutations+1;
+                if widget.transform.UserData.permutations == 3
+                    widget.transform.UserData.permutations = 0;
+                else
+                    widget.glassbrain.UserData.vol = permute(...
+                    widget.glassbrain.UserData.CTvol,[3 1 2]);
+                end
+            case 'T1'
+                widget.glassbrain.UserData.vol = permute(...
+                    widget.glassbrain.UserData.T1vol,[3 1 2]);
+        end
     elseif isequal(widget.transform.UserData.action,'rotate')
         switch data
             case 'CT'
