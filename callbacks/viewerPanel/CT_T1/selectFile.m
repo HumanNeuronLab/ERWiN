@@ -70,8 +70,11 @@ function selectFile(data, ~, widget)
         else
             widget.glassbrain.UserData.vol = MRIread([path file]);
         end
+        widget.glassbrain.UserData.filePath = path;
+        endIdx = strfind(path,[filesep 'elec_recon' filesep])-1;
+        startIdx = max(strfind(path(1:endIdx),filesep))+1;
+        widget.glassbrain.UserData.patientID = path(startIdx:endIdx);
 
-        
 %         if widget.transform.UserData.permutations ~= 0
 %             for i = 1:widget.transform.UserData.permutations
 %                 widget.glassbrain.UserData.vol = permute(...
@@ -84,8 +87,10 @@ function selectFile(data, ~, widget)
 %             end
 %         end
 
-
         widget.glassbrain.UserData.vol = rot90(widget.glassbrain.UserData.vol);
+    elseif isequal(widget.transform.UserData.action,'viewReset')
+        widget.glassbrain.UserData.vol = widget.glassbrain.UserData.(volName);
+        widget.glassbrain.transform.UserData.action = 'none';
     elseif isequal(widget.transform.UserData.action,'permute')
         switch data
             case 'CT'
@@ -259,8 +264,9 @@ function selectFile(data, ~, widget)
     widget.glassbrain.UserData.(checkbox).Enable = 'on';
     drawnow
     widget.fig.Pointer = 'arrow';
-    widget.button_permuteVol_CT.Enable = 'on';
-    widget.button_rotateVol_CT.Enable = 'on';
+    widget.button_resetView_CT.Enable = 'on';
+%     widget.button_permuteVol_CT.Enable = 'on';
+%     widget.button_rotateVol_CT.Enable = 'on';
 
     addlistener(widget.coronal_crosshair,'MovingROI',@(src,data)crossDrag...
         (src,data,widget.glassbrain.UserData.(volName),vol_size,labelVI,ax1,ax2,ax3,labelC,labelS,labelA,widget.coronal_image,...

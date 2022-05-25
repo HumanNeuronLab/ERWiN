@@ -1,14 +1,17 @@
-function saveMGRID(outputData,fName)
+function saveMGRID(outputData,fName,patientID)
 
 
 nElectrodes.Depth = length(fieldnames(outputData));
 nElectrodes.Strips = 0;
 nElectrodes.Grids = 0;
 
+if exist(fName,'file')
+    delete fName
+end
 
-fid = fopen([fName '.mgrid'],'w');
+fid = fopen(fName,'w');
 fprintf(fid, '#vtkpxElectrodeMultiGridSource File\n');
-fprintf(fid, ['#Description\n' fName '\n']);
+fprintf(fid, ['#Description\n' patientID '\n']);
 fprintf(fid, '#Comment\n');
 fprintf(fid, 'no additional comment\n');
 %fprintf(fid, '#Number of Depth Electrodes\n%d\n',nElectrodes.Depth);
