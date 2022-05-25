@@ -15,7 +15,7 @@ allow to save all outputs.
 
 
 Current Version: 0.6
-Updated on: 	 24/05/2022
+Updated on: 	 25/05/2022
 __________________________________________________________________________
 Current Version Updates:
        - GUI created that allows i-EEG electrode location estimation based
@@ -38,6 +38,8 @@ Current Version Updates:
        - Deletes old Children of Parent axes when new volume loaded
        - Axes directions updated for axial and sagittal planes
        - Electrode vis. feedback when estimation successful
+       - Reset view button added (when viewer starts malfunctioning)
+       - New exporting window makes file saving more streamlined
           
        Note: electrode parameters may only be modified or updated in the
        CT tab. After updating any electrode parameters, estimation must be
