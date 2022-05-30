@@ -1,4 +1,4 @@
-function widget = checkStatus(field,widget)
+function widget = checkStatus(field,widget,~)
 
     if ~isempty(widget.fig.UserData.(field).Name) && ~isempty(widget.fig.UserData.(field).numContacts)...
             && ~isempty(widget.fig.UserData.(field).contactDist) && ~isempty(widget.fig.UserData.(field).deepestCoord)...
@@ -54,6 +54,20 @@ function widget = checkStatus(field,widget)
     else
         widget.params.button_done.Enable = 'off';
         widget.params.button_done.BackgroundColor = [0.95,0.95,0.95];
+    end
+
+    if nargin == 2
+        for i = 1:length(fieldnames(widget.fig.UserData))
+            field = ['Electrode' num2str(i)];
+            autosave.electrode.(field) = widget.fig.UserData.(field);
+            if isfield(widget.glassbrain.UserData,'electrodes') && isfield(widget.glassbrain.UserData.electrodes,field)
+                autosave.glassbrain.(field) = widget.glassbrain.UserData.electrodes.(field);
+            end
+        end
+        autosave.filePath = widget.glassbrain.UserData.filePath;
+        autosave.patientID = widget.glassbrain.UserData.patientID;
+        fileName = [autosave.filePath autosave.patientID '_erwin.mat'];
+        save(fileName,'autosave');
     end
    
 end

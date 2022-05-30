@@ -11,7 +11,9 @@ function electrodeSelectionChanged(data,evt,widget)
         return
     end
     try
-        if isempty(widget.tree_Summary.SelectedNodes) || ~(isequal(data.Value,widget.tree_Summary.SelectedNodes.Text))
+        locator = strfind(widget.tree_Summary.SelectedNodes.Text,'_');
+        elecName = widget.tree_Summary.SelectedNodes.Text(locator-2:end);
+        if isempty(widget.tree_Summary.SelectedNodes) || ~(isequal(data.Value,elecName))
            if isnan(str2double(widget.tree_Summary.SelectedNodes.Text(9)))
                 currElectrode = find(contains(data.Items,data.Value));
                 widget.tree_Summary.SelectedNodes = widget.tree_Summary.Children(currElectrode);

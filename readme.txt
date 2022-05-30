@@ -14,8 +14,8 @@ contact coordinates are created, the "Done" button is enabled and will
 allow to save all outputs.
 
 
-Current Version: 0.6
-Updated on: 	 25/05/2022
+Current Version: 0.7
+Updated on: 	 30/05/2022
 __________________________________________________________________________
 Current Version Updates:
        - GUI created that allows i-EEG electrode location estimation based
@@ -40,6 +40,7 @@ Current Version Updates:
        - Electrode vis. feedback when estimation successful
        - Reset view button added (when viewer starts malfunctioning)
        - New exporting window makes file saving more streamlined
+       - Autosave and possibility of loading autosaved files (*_erwin.mat)
           
        Note: electrode parameters may only be modified or updated in the
        CT tab. After updating any electrode parameters, estimation must be
@@ -50,9 +51,6 @@ Known bugs:
        - Glassbrain tab requires major work.
  
 Future Version Updates:
-       - Rotation and permutation transformations must be taken into
-         coordinate account for contacts.
-       - Allow for slice viewer rotation and permutation.
        - Add option to not save Mgrid file.
        - Add option to save .txt file compatible with final BioImageSuite
          output file.

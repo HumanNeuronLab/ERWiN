@@ -61,7 +61,11 @@ function selectFile(data, ~, widget)
     drawnow
 
     if isequal(widget.transform.UserData.action,'none')
-        [file,path] = uigetfile({'*.nii;*.mgh;*.mgz'});
+        if isfield(widget.glassbrain.UserData,'filePath')
+            [file,path] = uigetfile({'*.nii;*.mgh;*.mgz'},'Select NIfTI file',widget.glassbrain.UserData.filePath);
+        else
+             [file,path] = uigetfile({'*.nii;*.mgh;*.mgz'},'Select NIfTI file');
+        end
         tab_MRI.Title = file;
         labelButton.Text = file;
         data.BackgroundColor = [0.94,0.94,0.94];
@@ -265,6 +269,7 @@ function selectFile(data, ~, widget)
     drawnow
     widget.fig.Pointer = 'arrow';
     widget.button_resetView_CT.Enable = 'on';
+    widget.button_load.Enable = 'on';
     widget = contactDotDisplay(widget);
 %     widget.button_permuteVol_CT.Enable = 'on';
 %     widget.button_rotateVol_CT.Enable = 'on';

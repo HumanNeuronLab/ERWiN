@@ -1,6 +1,4 @@
 function estimateButtonPush (~, ~, widget) 
-
-%%%%%%%  MUST STILL UPDATE TO TAKE ROTATIONS INTO ACCOUNT + VOXEL DIMENSIONS
     
     idx = find(contains(widget.params.dropdown_ElectrodeSelector.Items,widget.params.dropdown_ElectrodeSelector.Value));
     field = ['Electrode' num2str(idx)];
