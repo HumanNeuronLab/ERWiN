@@ -2,43 +2,59 @@ function widget = contactDotDisplay(widget)
     j1 = 1;
     j2 = 1;
     j3 = 1;
-    for i = 1:length((widget.ax_sliceView1_CT.Children))
-        if isequal(widget.ax_sliceView1_CT.Children(i).Tag,'dot')
+    switch widget.panel_CentralTabsMRI.SelectedTab.Tag
+        case 'CT'
+            ax1 = 'ax_sliceView1_CT';
+            ax2 = 'ax_sliceView2_CT';
+            ax3 = 'ax_sliceView3_CT';
+            sliderX = 'slider_X_CT';
+            sliderY = 'slider_Y_CT';
+            sliderZ = 'slider_Z_CT';
+        case 'T1'
+            ax1 = 'ax_sliceView1_T1';
+            ax2 = 'ax_sliceView2_T1';
+            ax3 = 'ax_sliceView3_T1';
+            sliderX = 'slider_X_T1';
+            sliderY = 'slider_Y_T1';
+            sliderZ = 'slider_Z_T1';
+    end
+    for i = 1:length((widget.(ax1).Children))
+        if isequal(widget.(ax1).Children(i).Tag,'dot')
             idDelete1(j1) = i;
             j1 = j1+1;
         end
     end
-    for i = 1:length((widget.ax_sliceView2_CT.Children))
-        if isequal(widget.ax_sliceView2_CT.Children(i).Tag,'dot')
+    for i = 1:length((widget.(ax2).Children))
+        if isequal(widget.(ax2).Children(i).Tag,'dot')
             idDelete2(j2) = i;
             j2 = j2+1;
         end
     end
-    for i = 1:length((widget.ax_sliceView3_CT.Children))
-        if isequal(widget.ax_sliceView3_CT.Children(i).Tag,'dot')
+    for i = 1:length((widget.(ax3).Children))
+        if isequal(widget.(ax3).Children(i).Tag,'dot')
             idDelete3(j3) = i;
             j3 = j3+1;
         end
     end
     try
-        widget.ax_sliceView1_CT.Children(idDelete1).delete
+        widget.(ax1).Children(idDelete1).delete
     catch
     end
     try
-        widget.ax_sliceView2_CT.Children(idDelete2).delete
+        widget.(ax2).Children(idDelete2).delete
     catch
     end
     try
-        widget.ax_sliceView3_CT.Children(idDelete3).delete
+        widget.(ax3).Children(idDelete3).delete
     catch
     end
 
     for i = 1:length(fieldnames(widget.fig.UserData))
         field = ['Electrode' num2str(i)];
         if isequal(widget.fig.UserData.(field).Estimation,'SUCCESS')
-            xVal = widget.slider_X_CT.Value;
-            yVal = widget.slider_Y_CT.Value;
-            zVal = widget.slider_Z_CT.Value;
+            xVal = widget.(sliderX).Value;
+            yVal = widget.(sliderY).Value;
+            zVal = widget.(sliderZ).Value;
             widget.idX = find(...
                 widget.fig.UserData.(field).contact(:,1) >= xVal-1 &...
                 widget.fig.UserData.(field).contact(:,1) <= xVal+1);
@@ -49,30 +65,30 @@ function widget = contactDotDisplay(widget)
                 widget.fig.UserData.(field).contact(:,3) >= zVal-1 &...
                 widget.fig.UserData.(field).contact(:,3) <= zVal+1);
 
-            hold(widget.ax_sliceView1_CT,'on');
-            plot(widget.ax_sliceView1_CT,...
+            hold(widget.(ax1),'on');
+            plot(widget.(ax1),...
                 widget.fig.UserData.(field).contact(widget.idZ,1), ...
                 widget.fig.UserData.(field).contact(widget.idZ,2), ...
                 'Marker','.','MarkerSize',15,'Tag','dot',...
                 'Color',widget.glassbrain.UserData.electrodes.(field).Color);
-            hold(widget.ax_sliceView1_CT,'off');
+            hold(widget.(ax1),'off');
 
-            hold(widget.ax_sliceView2_CT,'on');
-            plot(widget.ax_sliceView2_CT,...
+            hold(widget.(ax2),'on');
+            plot(widget.(ax2),...
                 widget.fig.UserData.(field).contact(widget.idX,3), ...
                 widget.fig.UserData.(field).contact(widget.idX,2), ...
                 'Marker','.','MarkerSize',15,'Tag','dot',...
                 'Color',widget.glassbrain.UserData.electrodes.(field).Color);
-            hold(widget.ax_sliceView2_CT,'off');
+            hold(widget.(ax2),'off');
 
-            hold(widget.ax_sliceView3_CT,'on');
-            plot(widget.ax_sliceView3_CT,...
+            hold(widget.(ax3),'on');
+            plot(widget.(ax3),...
                 widget.fig.UserData.(field).contact(widget.idY,1), ...
                 length(widget.glassbrain.UserData.vol(1,:,1))-...
                 widget.fig.UserData.(field).contact(widget.idY,3)+1, ...
                 'Marker','.','MarkerSize',15,'Tag','dot',...
                 'Color',widget.glassbrain.UserData.electrodes.(field).Color);
-            hold(widget.ax_sliceView1_CT,'off');
+            hold(widget.(ax3),'off');
         end
     end
 

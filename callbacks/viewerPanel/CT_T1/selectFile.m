@@ -88,9 +88,9 @@ function selectFile(data, ~, widget)
 %         end
 
         widget.glassbrain.UserData.vol = rot90(widget.glassbrain.UserData.vol);
-    elseif isequal(widget.transform.UserData.action,'viewReset')
+    elseif isequal(widget.transform.UserData.action,'resetView')
         widget.glassbrain.UserData.vol = widget.glassbrain.UserData.(volName);
-        widget.glassbrain.transform.UserData.action = 'none';
+        widget.transform.UserData.action = 'none';
     elseif isequal(widget.transform.UserData.action,'permute')
         switch data
             case 'CT'
@@ -265,6 +265,7 @@ function selectFile(data, ~, widget)
     drawnow
     widget.fig.Pointer = 'arrow';
     widget.button_resetView_CT.Enable = 'on';
+    widget = contactDotDisplay(widget);
 %     widget.button_permuteVol_CT.Enable = 'on';
 %     widget.button_rotateVol_CT.Enable = 'on';
 
