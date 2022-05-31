@@ -15,7 +15,7 @@ allow to save all outputs.
 
 
 Current Version: 0.7
-Updated on: 	 30/05/2022
+Updated on: 	 31/05/2022
 __________________________________________________________________________
 Current Version Updates:
        - GUI created that allows i-EEG electrode location estimation based
@@ -41,6 +41,7 @@ Current Version Updates:
        - Reset view button added (when viewer starts malfunctioning)
        - New exporting window makes file saving more streamlined
        - Autosave and possibility of loading autosaved files (*_erwin.mat)
+       - Electrode name bug fixed
           
        Note: electrode parameters may only be modified or updated in the
        CT tab. After updating any electrode parameters, estimation must be
