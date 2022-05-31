@@ -1,17 +1,23 @@
 function electrodeNameChanged(~,evt,widget)
 
     idx = find(contains(widget.params.dropdown_ElectrodeSelector.Items,widget.params.dropdown_ElectrodeSelector.Value));
+    errorVal = 0;
+    for i = 1:numel(widget.params.dropdown_ElectrodeSelector.Items)
+        if isequal(widget.params.dropdown_ElectrodeSelector.Items{i},...
+                [widget.params.radiogroup1.SelectedObject.Text widget.params.radiogroup2.SelectedObject.Text '_' evt.Value])
+            widget.params.field_ElectrodeName.Value = evt.PreviousValue;
+            warning('Another electrode already has this name.')
+            errorVal = 1;
+            break
+        end
+    end
+    if errorVal == 1
+        return
+    end
     field = ['Electrode' num2str(idx)];
     if contains(evt.Value, ' ') || contains(evt.Value, '_')
         warning('Electrode name may not contains spaces or underscores.')
         widget.params.label_NameAcceptance.Text = ['Warning: rename electrode!' newline 'Electrode name may not contains spaces or underscores.'];
-        widget.params.label_NameAcceptance.Visible = 'on';
-        widget.params.label_NameAcceptance.FontColor = [1,0.65,0];
-        widget.params.field_ElectrodeName.BackgroundColor = [1,0.95,0.95];
-        widget.params.field_ElectrodeName.Value = evt.PreviousValue;
-    elseif length(find(contains(widget.params.dropdown_ElectrodeSelector.Items, evt.Value))) > 1
-        warning('This names is an abbreviated version of another electrode. Please change one of the names.')
-        widget.params.label_NameAcceptance.Text = ['Warning: rename electrode!' newline 'Another electrode has this name or a longer version of it.'];
         widget.params.label_NameAcceptance.Visible = 'on';
         widget.params.label_NameAcceptance.FontColor = [1,0.65,0];
         widget.params.field_ElectrodeName.BackgroundColor = [1,0.95,0.95];
