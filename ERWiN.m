@@ -4,7 +4,7 @@ function ERWiN
 %   
 %   Version:        0.7
 %   Contact:        jonathan.monney@unige.ch
-%   Last Update:    30/05/2022
+%   Last Update:    02/06/2022
 %
 %   Current Version Updates:
 %       - Output .mgrids may be viewed in BioImage Suite 3.0
@@ -83,6 +83,15 @@ widget.fig          = uifigure('Name',fig_title,...
                                'Position',fig_size,...
                                'Color',[0.5,0.5,0.5],...
                                'Pointer','watch');
+%__________________________________________________________________________
+%%% TENTATIVE Icon change
+% cefWindowList = matlab.internal.webwindowmanager.instance.windowList;
+% url = matlab.ui.internal.FigureServices.getFigureURL(widget.fig);
+% [idx] = arrayfun(@(ww)strcmp(url,ww.URL), cefWindowList);
+% hWin = cefWindowList(idx);
+% hWin.Icon = 'C:\Users\monneyjo\Downloads\unige_logo_1aj_icon.ico';
+%__________________________________________________________________________
+
 widget              = update_outputData(widget);
 drawnow
 
