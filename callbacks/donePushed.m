@@ -2,8 +2,7 @@ function donePushed(~,~,widget,fig,pos)
 
     cd(widget.glassbrain.UserData.filePath);
     [filename,path,~] = uiputfile('*.mgrid','File Export',...
-        widget.glassbrain.UserData.patientID,...
-        'Position',[pos(1)+pos(3)/2-250,300,500,500]);
+        widget.glassbrain.UserData.patientID);
         
     for z = 1:length(fieldnames(widget.fig.UserData))
         field = ['Electrode' num2str(z)];
