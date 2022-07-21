@@ -85,6 +85,10 @@ function estimateButtonPush (~, ~, widget)
         end
         %widget = mriVolUpdate(widget);
         widget = contactDotDisplay(widget);
+        tmpCtc = [widget.fig.UserData.(field).contact(1,1),widget.fig.UserData.(field).contact(end,1);
+            widget.fig.UserData.(field).contact(1,2),widget.fig.UserData.(field).contact(end,2);
+            widget.fig.UserData.(field).contact(1,3),widget.fig.UserData.(field).contact(end,3)];
+        volRot(tmpCtc);
     catch
         widget.fig.UserData.(field).Estimation = 'FAILED';
         warning('Contact coordinates estimation failed - Please try updating coordinates');

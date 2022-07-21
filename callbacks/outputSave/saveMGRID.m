@@ -38,7 +38,7 @@ if nElectrodes.Depth
         fprintf(fid, '#Thickness\n%.3f\n',elecThickness);
         elecColor = outputData.(field).Color;
         fprintf(fid, '#Color\n%.3f %.3f %.3f\n',elecColor(1),elecColor(2),elecColor(3));
-        for j = 1:numContacts
+        for j = numContacts:-1:1
             fprintf(fid, '#- - - - - - - - - - - - - - - - - - -\n');
             fprintf(fid, '# Electrode 0 %d\n',j-1);
             fprintf(fid, '- - - - - - - - - - - - - - - - - - -\n');
