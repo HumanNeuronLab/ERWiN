@@ -15,7 +15,7 @@ allow to save all outputs.
 
 
 Current Version: 0.7
-Updated on: 	 31/05/2022
+Updated on: 	 21/07/2022
 __________________________________________________________________________
 Current Version Updates:
        - GUI created that allows i-EEG electrode location estimation based
@@ -42,6 +42,8 @@ Current Version Updates:
        - New exporting window makes file saving more streamlined
        - Autosave and possibility of loading autosaved files (*_erwin.mat)
        - Electrode name bug fixed
+       - Order contacts are saved in .mgrid reversed for correct
+         BioImageSuite reading
           
        Note: electrode parameters may only be modified or updated in the
        CT tab. After updating any electrode parameters, estimation must be
@@ -50,11 +52,14 @@ Current Version Updates:
 
 Known bugs:
        - Glassbrain tab requires major work.
+       - 3-slice viewer functional but may be optimised by displaying
+         transpose of loaded volume.
  
 Future Version Updates:
        - Add option to not save Mgrid file.
        - Add option to save .txt file compatible with final BioImageSuite
          output file.
+       - Review 3-slice viewer displaying method.
        - Add option to create "grid" electrodes.
        - Add option to create "strip" electrodes.
 

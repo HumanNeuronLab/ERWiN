@@ -4,17 +4,17 @@ function ERWiN
 %   
 %   Version:        0.7
 %   Contact:        jonathan.monney@unige.ch
-%   Last Update:    02/06/2022
+%   Last Update:    21/07/2022
 %
 %   Current Version Updates:
-%       - Output .mgrids may be viewed in BioImage Suite 3.0
 %       - Fixed bug wrgds to color assignment
 %       - Deletes old Children of Parent axes when new volume loaded
 %       - Axes directions updated for axial and sagittal planes
 %       - Electrode vis. feedback when estimation successful
 %       - Reset view button added (when viewer starts malfunctioning)
-%       - New exporting window makes file saving more streamlined
 %       - Autosave and possibility of loading autosaved files (*_erwin.mat)
+%       - Order contacts are saved in .mgrid reversed for correct
+%         BioImageSuite reading
 %          
 %       Note: electrode parameters may only be modified or updated in the
 %       CT tab. After updating any electrode parameters, estimation must be
